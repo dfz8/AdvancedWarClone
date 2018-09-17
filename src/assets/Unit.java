@@ -1,3 +1,4 @@
+package src.assets;
 
 public class Unit {
 
@@ -9,7 +10,7 @@ public class Unit {
   }
 
   /* Counter to keep track of total units created */
-  private static int global_unit_counter = 0;
+  private static int globalUnitCounter = 0;
 
   /* Specific id corresponding to the created unit */
   private int mId;
@@ -59,7 +60,7 @@ public class Unit {
       UNIT_TYPE type,
       int row,
       int col) {
-    mId = ++global_unit_counter;
+    mId = ++globalUnitCounter;
     mName = name;
     mCost = cost;
     mMovementRange = movementRange;
@@ -82,6 +83,11 @@ public class Unit {
     mCol += dc;
   }
 
+  public boolean isDead() {
+    return mHealth > 0;
+  }
+
+////////////////////////////////////////////////////////////////////////////////
 
   public int getId() {
     return mId;
@@ -117,5 +123,34 @@ public class Unit {
 
   public int getHealth() {
     return mHealth;
+  }
+
+  public UNIT_TYPE getType() {
+    return mUnitType;
+  }
+
+  public int getRow() {
+    return mRow;
+  }
+
+  public int getCol() {
+    return mCol;
+  }
+
+  public String toString() {
+    return "[UNIT: " + mId + ", " + mName + "]";
+  }
+////////////////////////////////////////////////////////////////////////////////
+
+  public void setHealth(int health) {
+    mHealth = health;
+  }
+
+  public void setRow(int row) {
+    mRow = row;
+  }
+
+  public void setCol(int col) {
+    mCol = col;
   }
 }

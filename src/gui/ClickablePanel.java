@@ -1,11 +1,21 @@
 package src.gui;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
+import src.styles.StyleUtil;
+
 public class ClickablePanel {
+  public static enum ALIGNMENT {
+    CENTER,
+    LEFT,
+  };
+
+  private static int padding = 10;
+
   private int mLeft;
   private int mTop;
   private int mRight;
@@ -19,31 +29,63 @@ public class ClickablePanel {
 
   private boolean isHoveredOver;
 
-  public ClickablePanel(int left, int top, int right, int bottom, String text){
+  private StyleUtil mStyleUtil;
+  private Font mFont;
+
+  public ClickablePanel(
+      int left,
+      int top,
+      int width,
+      int height,
+      String text,
+      StyleUtil.FONTS font,
+      ALIGNMENT alignment,
+      StyleUtil styleUtil){
     mLeft = left;
     mTop = top;
-    mRight = right;
-    mBottom = bottom;
+    mRight = left + width;
+    mBottom = top + height;
     mText = text;
-    mWidth = mRight - mLeft;
-    mHeight = mBottom - mTop;
+    mWidth = width;
+    mHeight = height;
 
-    // temp values for now
-    mTextX = mLeft;
-    mTextY = mBottom;
+    mStyleUtil = styleUtil;
+    mFont = mStyleUtil.getFont(font);
+    computeALignment(font, alignment);
 
     isHoveredOver = false;
   }
 
+  // Computes the (x, y) for the baseline of the first line of text
+  private void computeALignment(StyleUtil.FONTS font, ALIGNMENT alignment) {
+    SimpleRect rect = new SimpleRect();
+    mStyleUtil.measureString(font, mText, rect);
+    switch(alignment) {
+      case CENTER:
+        mTextX = (mLeft + mRight - rect.getWidth()) / 2;
+        mTextY = (mTop + mBottom + rect.getHeight()) / 2;
+        break;
+      case LEFT:
+        mTextX = mLeft + padding;
+        mTextY = mTop + padding + rect.getHeight();
+        break;
+    }
+  }
+
   public void draw(Graphics mBuffer) {
     if(isHoveredOver) {
-      mBuffer.setColor(Color.GREEN);
+      mBuffer.setColor(mStyleUtil.getHighlightColor());
       mBuffer.fillRect(mLeft - 5, mTop - 5, mWidth + 10, mHeight + 10);
     }
-    mBuffer.setColor(Color.WHITE);
+
+    mBuffer.setColor(mStyleUtil.getPanelBackgroundColor());
     mBuffer.fillRect(mLeft, mTop, mWidth, mHeight);
-    mBuffer.setColor(Color.BLACK);
+
+    mBuffer.setColor(mStyleUtil.getOutlineColor());
     mBuffer.drawRect(mLeft, mTop, mWidth, mHeight);
+
+    mBuffer.setFont(mFont);
+    mBuffer.setColor(mStyleUtil.getTextColor());
     mBuffer.drawString(mText, mTextX, mTextY);
   }
 

@@ -11,18 +11,22 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionAdapter;
+import java.util.Stack;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import src.gui.ClickablePanel;
+import src.styles.StyleUtil;
 
 public class OmniPanel extends JPanel {
   // approx 30hz update
   private static final long UPDATE_TIME_THRESHOLD = 33000000;
+  private StyleUtil mStyleUtil;
+
+  private Stack<GamePanel> mPanelStack;
 
   private BufferedImage mImage;
   private Graphics mBuffer;
-  private Color mBackgroundColor = Color.YELLOW;
   private GamePanel mCurrentPanel;
   private MouseAdapter mMouseClickListener;
   private MouseMotionAdapter mMouseMotionListener;
@@ -36,6 +40,7 @@ public class OmniPanel extends JPanel {
         GameDriver.HEIGHT,
         BufferedImage.TYPE_INT_RGB);
     mBuffer = mImage.getGraphics();
+    mStyleUtil = new StyleUtil(mBuffer);
 
     mCurrentPanel = new MenuPanel(this, mBuffer);
 
@@ -55,8 +60,17 @@ public class OmniPanel extends JPanel {
       System.out.println("Already on this panel.");
       return;
     }
+    mPanelStack.push(mCurrentPanel);
     mCurrentPanel = panel;
     // does this refresh what to draw?
+  }
+
+  public void navigateBackOneScreen() {
+    if (mPanelStack.size() > 0) {
+      mCurrentPanel = mPanelStack.pop();
+    } else {
+      System.out.println("ERROR: Tried to go back on empty stack.");
+    }
   }
 
   public void paintComponent(Graphics g){
@@ -67,8 +81,9 @@ public class OmniPanel extends JPanel {
     public void actionPerformed(ActionEvent e) {
       mCheckTime = System.nanoTime();
       if ( mCheckTime - mLastTime > UPDATE_TIME_THRESHOLD) {
-        mBuffer.setColor(mBackgroundColor);
+        mBuffer.setColor(mStyleUtil.getBackgroundColor());
         mBuffer.fillRect(0, 0, GameDriver.WIDTH, GameDriver.HEIGHT);
+        
         // update graphics
         mCurrentPanel.updateState(mCheckTime - mLastTime);
 
@@ -93,4 +108,6 @@ public class OmniPanel extends JPanel {
       }
     }
   }
+
+  public StyleUtil getStyleUtil() { return mStyleUtil; }
 }

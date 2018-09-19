@@ -16,15 +16,15 @@ public class LayoutManager implements Layoutable {
     SPACE_BETWEEN,
   };
 
-  private static final minPadding = 5;
+  private static final int minPadding = 5;
 
   private LinkedList<Layoutable> mContents;
   private FLEX_DIRECTION mFlexDirection;
   private ALIGN_CONTENT mAlignContent;
   private int mX;
   private int mY;
-  private int mTotalWidth;
-  private int mTotalHeight;
+  private final int mTotalWidth;
+  private final int mTotalHeight;
 
   public LayoutManager(
       int x,
@@ -51,14 +51,14 @@ public class LayoutManager implements Layoutable {
     mAlignContent = alignment;
   }
 
-  public boolean addPanel(Layoutable cp) {
-      return mContents.add(cp) && relayout(false);
+  public boolean add(Layoutable cp) {
+    return mContents.add(cp) && relayout();
   }
 
   public boolean setFlexDirection(FLEX_DIRECTION direction) {
-    if (mDirection != direction) {
-      mDirection = direction;
-      return relayout(true);
+    if (mFlexDirection != direction) {
+      mFlexDirection = direction;
+      return relayout();
     }
     return true;
   }
@@ -67,11 +67,7 @@ public class LayoutManager implements Layoutable {
    * Does the best to reorganize the contents to fit in the space with the
    * FLEX_DIRECTION but if it can't fit then will let it overflow and return false.
    */
-  boolean relayout(boolean didReallign) {
-    if (didReallign) {
-    } else {
-    }
-
+  boolean relayout() {
     if (mFlexDirection == FLEX_DIRECTION.VERTICAL) {
       return relayoutVertically();
     }
@@ -83,14 +79,14 @@ public class LayoutManager implements Layoutable {
     for (Layoutable l : mContents ) {
       contentHeightSum += l.getHeight();
       // recenter other axis
-      l.setX(l.getX() - l.getWidth()/2 + mX);
+      l.setX(mX + (mTotalWidth - l.getWidth()) / 2);
     }
     int leftover =
         mTotalHeight
-        - totalLength
+        - contentHeightSum
         - (1 + mContents.size()) * minPadding;
     if (leftover < 0) {
-
+      System.out.println("no leftovers");
       return false;
     }
 
@@ -98,6 +94,7 @@ public class LayoutManager implements Layoutable {
     int space_between;
     switch(mAlignContent) {
       case CENTER:
+      default:
         space_around = leftover / 2;
         space_between = minPadding;
         break;
@@ -111,7 +108,7 @@ public class LayoutManager implements Layoutable {
     int curY = mY + space_around;
     for (Layoutable l : mContents) {
       l.setY(curY);
-      curY += space_between;
+      curY += space_between + l.getHeight();
     }
 
     return true;
@@ -123,18 +120,18 @@ public class LayoutManager implements Layoutable {
 
 // Layoutable interface implementations
 
-  int getX() { return mX; }
-  int gety() { return mY; }
-  int getWidth() { return mTotalWidth; }
-  int getHeight() { return mTotalHeight; }
+  public int getX() { return mX; }
+  public int gety() { return mY; }
+  public int getWidth() { return mTotalWidth; }
+  public int getHeight() { return mTotalHeight; }
 
-  void setX(int x) {
+  public void setX(int x) {
     mX = x;
-    relayout(false);
+    relayout();
   }
 
-  void setY(int y) {
+  public void setY(int y) {
     mY = y;
-    relayout(false);
+    relayout();
   }
 }

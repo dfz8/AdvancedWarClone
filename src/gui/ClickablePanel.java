@@ -6,9 +6,10 @@ import java.awt.Graphics;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
+import src.gui.layouts.Layoutable;
 import src.utils.StyleUtil;
 
-public class ClickablePanel {
+public class ClickablePanel implements Layoutable {
   public static enum ALIGNMENT {
     CENTER,
     LEFT,
@@ -24,8 +25,8 @@ public class ClickablePanel {
   private int mHeight;
 
   private String mText;
-  private int mTextX;
-  private int mTextY;
+  private int mTextXOffset;
+  private int mTextYOffset;
 
   private boolean isHoveredOver;
 
@@ -73,12 +74,12 @@ public class ClickablePanel {
     mStyleUtil.measureString(font, mText, rect);
     switch(alignment) {
       case CENTER:
-        mTextX = (mLeft + mRight - rect.getWidth()) / 2;
-        mTextY = (mTop + mBottom + rect.getHeight()) / 2;
+        mTextXOffset = (mRight - rect.getWidth()) / 2;
+        mTextYOffset = (mBottom + rect.getHeight()) / 2;
         break;
       case LEFT:
-        mTextX = mLeft + padding;
-        mTextY = mTop + padding + rect.getHeight();
+        mTextXOffset = padding;
+        mTextYOffset = padding + rect.getHeight();
         break;
     }
   }
@@ -97,7 +98,7 @@ public class ClickablePanel {
 
     mBuffer.setFont(mFont);
     mBuffer.setColor(mStyleUtil.getTextColor());
-    mBuffer.drawString(mText, mTextX, mTextY);
+    mBuffer.drawString(mText, mLeft + mTextXOffset, mTop + mTextYOffset);
   }
 
   public boolean isClickInBounds(int eX, int eY) {
@@ -111,5 +112,20 @@ public class ClickablePanel {
 
   public void onMouseMove(int eX, int eY) {
     isHoveredOver = isClickInBounds(eX, eY);
+  }
+
+  // Layoutable Interface implementations
+
+  public int getX() { return mLeft; }
+  public int gety() { return mTop; }
+  public int getWidth() { return mWidth; }
+  public int getHeight() { return mHeight; }
+  public void setX(int x) {
+    mLeft = x;
+    mRight = mLeft + mWidth;
+  }
+  public void setY(int y) {
+    mTop = y;
+    mBottom = mTop + mHeight;
   }
 }

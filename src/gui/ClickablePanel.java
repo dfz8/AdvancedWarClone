@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
-import src.styles.StyleUtil;
+import src.utils.StyleUtil;
 
 public class ClickablePanel {
   public static enum ALIGNMENT {
@@ -31,6 +31,17 @@ public class ClickablePanel {
 
   private StyleUtil mStyleUtil;
   private Font mFont;
+
+
+  public ClickablePanel(
+      int width,
+      int height,
+      String text,
+      StyleUtil.FONTS font,
+      ALIGNMENT alignment,
+      StyleUtil styleUtil) {
+    this(0, 0, width, height, text, font, alignment, styleUtil);
+  }
 
   public ClickablePanel(
       int left,

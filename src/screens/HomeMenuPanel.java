@@ -1,4 +1,4 @@
-package src;
+package src.screens;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -8,12 +8,13 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 
 import src.gui.ClickablePanel;
-import src.styles.StyleUtil;
+import src.utils.GameUtil;
+import src.utils.StyleUtil;
 
-public class MenuPanel extends GamePanel {
+public class HomeMenuPanel extends GamePanel {
   private static final String GAME_DIR = "../game_files/";
 
-  public MenuPanel(OmniPanel parent, Graphics buffer) {
+  public HomeMenuPanel(OmniPanel parent, Graphics buffer) {
     super(parent, buffer);
 
     int width = 200;
@@ -21,7 +22,7 @@ public class MenuPanel extends GamePanel {
 
     ClickablePanel playButton =
         new ClickablePanel(
-            (GameDriver.WIDTH - width)/2, 100,
+            (GameUtil.WIDTH - width)/2, 100,
             width, height,
             "Play",
             StyleUtil.FONTS.TITLE_FONT,
@@ -36,7 +37,7 @@ public class MenuPanel extends GamePanel {
 
     ClickablePanel optionButton =
         new ClickablePanel(
-            (GameDriver.WIDTH - width)/2, 100 + height + 25,
+            (GameUtil.WIDTH - width)/2, 100 + height + 25,
             width, height,
             "Options",
             StyleUtil.FONTS.TITLE_FONT,

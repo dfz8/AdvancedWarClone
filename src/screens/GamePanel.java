@@ -1,4 +1,4 @@
-package src;
+package src.screens;
 
 import java.awt.event.MouseEvent;
 import java.awt.Graphics;

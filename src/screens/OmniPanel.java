@@ -1,7 +1,7 @@
 /**
  * This class contains all the listeners and hosts the current visible content.
  */
-package src;
+package src.screens;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -16,7 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import src.gui.ClickablePanel;
-import src.styles.StyleUtil;
+import src.utils.GameUtil;
+import src.utils.StyleUtil;
 
 public class OmniPanel extends JPanel {
   // approx 30hz update
@@ -36,13 +37,13 @@ public class OmniPanel extends JPanel {
 
   public OmniPanel() {
     mImage = new BufferedImage(
-        GameDriver.WIDTH,
-        GameDriver.HEIGHT,
+        GameUtil.WIDTH,
+        GameUtil.HEIGHT,
         BufferedImage.TYPE_INT_RGB);
     mBuffer = mImage.getGraphics();
     mStyleUtil = new StyleUtil(mBuffer);
 
-    mCurrentPanel = new MenuPanel(this, mBuffer);
+    mCurrentPanel = new HomeMenuPanel(this, mBuffer);
 
     mTimer = new Timer(30, new RefreshListener());
     mMouseClickListener = new MouseClickListener();
@@ -74,7 +75,7 @@ public class OmniPanel extends JPanel {
   }
 
   public void paintComponent(Graphics g){
-     g.drawImage(mImage, 0, 0, GameDriver.WIDTH, GameDriver.HEIGHT, null);
+     g.drawImage(mImage, 0, 0, GameUtil.WIDTH, GameUtil.HEIGHT, null);
   }
 
   public class RefreshListener implements ActionListener {
@@ -82,8 +83,8 @@ public class OmniPanel extends JPanel {
       mCheckTime = System.nanoTime();
       if ( mCheckTime - mLastTime > UPDATE_TIME_THRESHOLD) {
         mBuffer.setColor(mStyleUtil.getBackgroundColor());
-        mBuffer.fillRect(0, 0, GameDriver.WIDTH, GameDriver.HEIGHT);
-        
+        mBuffer.fillRect(0, 0, GameUtil.WIDTH, GameUtil.HEIGHT);
+
         // update graphics
         mCurrentPanel.updateState(mCheckTime - mLastTime);
 

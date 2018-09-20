@@ -105,9 +105,15 @@ public class ClickablePanel implements Layoutable {
     return eX >= mLeft && eX <= mRight && eY >= mTop && eY <= mBottom;
   }
 
-  // Needs to be overriden
   public void onMouseClick(int eX, int eY) {
-    System.out.println("Default on mouse click...needed to override");
+    if (isClickInBounds(eX, eY)) {
+      onClickCallback();
+    }
+  }
+
+  // needs to be overridden
+  public void onClickCallback() {
+
   }
 
   public void onMouseMove(int eX, int eY) {

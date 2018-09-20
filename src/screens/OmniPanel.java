@@ -44,6 +44,7 @@ public class OmniPanel extends JPanel {
     mStyleUtil = new StyleUtil(mBuffer);
 
     mCurrentPanel = new HomeMenuPanel(this, mBuffer);
+    mPanelStack = new Stack<GamePanel>();
 
     mTimer = new Timer(30, new RefreshListener());
     mMouseClickListener = new MouseClickListener();
@@ -63,7 +64,6 @@ public class OmniPanel extends JPanel {
     }
     mPanelStack.push(mCurrentPanel);
     mCurrentPanel = panel;
-    // does this refresh what to draw?
   }
 
   public void navigateBackOneScreen() {
@@ -74,14 +74,14 @@ public class OmniPanel extends JPanel {
     }
   }
 
-  public void paintComponent(Graphics g){
-     g.drawImage(mImage, 0, 0, GameUtil.WIDTH, GameUtil.HEIGHT, null);
+  public void paintComponent(Graphics g) {
+    g.drawImage(mImage, 0, 0, GameUtil.WIDTH, GameUtil.HEIGHT, null);
   }
 
   public class RefreshListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
       mCheckTime = System.nanoTime();
-      if ( mCheckTime - mLastTime > UPDATE_TIME_THRESHOLD) {
+      if (mCheckTime - mLastTime > UPDATE_TIME_THRESHOLD) {
         mBuffer.setColor(mStyleUtil.getBackgroundColor());
         mBuffer.fillRect(0, 0, GameUtil.WIDTH, GameUtil.HEIGHT);
 
@@ -95,11 +95,11 @@ public class OmniPanel extends JPanel {
   }
 
   public class MouseMotionListener extends MouseMotionAdapter {
-     public void mouseMoved(MouseEvent e) {
-       if (mCurrentPanel != null) {
-         mCurrentPanel.processMouseMoveEvent(e);
-       }
-     }
+    public void mouseMoved(MouseEvent e) {
+      if (mCurrentPanel != null) {
+        mCurrentPanel.processMouseMoveEvent(e);
+      }
+    }
   }
 
   public class MouseClickListener extends MouseAdapter {

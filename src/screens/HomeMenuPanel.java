@@ -35,10 +35,8 @@ public class HomeMenuPanel extends GamePanel {
             StyleUtil.FONTS.TITLE_FONT,
             ClickablePanel.ALIGNMENT.CENTER,
             parent.getStyleUtil()) {
-            public void onMouseClick(int eX, int eY) {
-              if(isClickInBounds(eX, eY)) {
-                loadGame("testGame.json");
-              }
+                public void onClickCallback() {
+                  loadGame("testGame.json");
             }
         };
 
@@ -49,10 +47,8 @@ public class HomeMenuPanel extends GamePanel {
             StyleUtil.FONTS.TITLE_FONT,
             ClickablePanel.ALIGNMENT.CENTER,
             parent.getStyleUtil()) {
-            public void onMouseClick(int eX, int eY) {
-              if(isClickInBounds(eX, eY)) {
-                System.out.println("going to options menu");
-              }
+                public void onClickCallback() {
+                  parent.navigateToScreen(new OptionsMenuPanel(parent, buffer));
             }
         };
 

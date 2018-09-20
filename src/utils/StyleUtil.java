@@ -20,9 +20,9 @@ public class StyleUtil {
   private static final Color TEXT_COLOR = Color.BLACK;
   private static final Color OUTLINE_COLOR = Color.GRAY;
 
-  private static final Font titleFont = new Font("Agency FB",Font.BOLD,25);
-  private static final Font subtitleFont = new Font("Agency FB",Font.BOLD,18);
-  private static final Font textFont = new Font("Agency FB",Font.PLAIN,15);
+  private static final Font titleFont = new Font("Agency FB", Font.BOLD, 25);
+  private static final Font subtitleFont = new Font("Agency FB", Font.BOLD, 18);
+  private static final Font textFont = new Font("Agency FB", Font.PLAIN, 15);
   private static FontMetrics titleFontMetrics;
   private static FontMetrics subtitleFontMetrics;
   private static FontMetrics textFontMetrics;
@@ -37,7 +37,7 @@ public class StyleUtil {
   }
 
   public Font getFont(FONTS font) {
-    switch(font) {
+    switch (font) {
       case TITLE_FONT:
         return titleFont;
       case SUBTITLE_FONT:
@@ -74,6 +74,5 @@ public class StyleUtil {
         break;
     }
   }
-
 
 }

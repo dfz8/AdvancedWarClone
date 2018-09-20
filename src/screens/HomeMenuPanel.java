@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 
 import src.gui.ClickablePanel;
+import src.gui.TextButton;
 import src.gui.layouts.LayoutManager;
 import src.utils.GameUtil;
 import src.utils.StyleUtil;
@@ -28,24 +29,24 @@ public class HomeMenuPanel extends GamePanel {
     int width = 200;
     int height = 100;
 
-    ClickablePanel playButton =
-        new ClickablePanel(
+    TextButton playButton =
+        new TextButton(
             width, height,
             "Play",
             StyleUtil.FONTS.TITLE_FONT,
-            ClickablePanel.ALIGNMENT.CENTER,
+            TextButton.TEXT_ALIGNMENT.CENTER,
             parent.getStyleUtil()) {
                 public void onClickCallback() {
                   loadGame("testGame.json");
             }
         };
 
-    ClickablePanel optionButton =
-        new ClickablePanel(
+    TextButton optionButton =
+        new TextButton(
             width, height,
             "Options",
             StyleUtil.FONTS.TITLE_FONT,
-            ClickablePanel.ALIGNMENT.CENTER,
+            TextButton.TEXT_ALIGNMENT.CENTER,
             parent.getStyleUtil()) {
                 public void onClickCallback() {
                   parent.navigateToScreen(new OptionsMenuPanel(parent, buffer));

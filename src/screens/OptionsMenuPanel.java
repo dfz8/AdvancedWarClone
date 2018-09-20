@@ -2,21 +2,21 @@ package src.screens;
 
 import java.awt.Graphics;
 
-import src.gui.ClickablePanel;
+import src.gui.TextButton;
 import src.utils.StyleUtil;
 
 public class OptionsMenuPanel extends GamePanel {
   public OptionsMenuPanel(OmniPanel parent, Graphics buffer) {
     super(parent, buffer);
 
-    ClickablePanel backButton = new ClickablePanel(
+    TextButton backButton = new TextButton(
         0,
         0,
         100,
         50,
         "Back",
         StyleUtil.FONTS.SUBTITLE_FONT,
-        ClickablePanel.ALIGNMENT.CENTER,
+        TextButton.TEXT_ALIGNMENT.CENTER,
         parent.getStyleUtil()) {
             public void onClickCallback() {
               parent.navigateBackOneScreen();

@@ -115,6 +115,42 @@ public class LayoutManager implements Layoutable {
   }
 
   private boolean relayoutHorizontally() {
+    int contentWidthSum = 0;
+    for (Layoutable l : mContents ) {
+      contentWidthSum += l.getWidth();
+      // recenter other axis
+      l.setY(mY + (mTotalHeight - l.getHeight()) / 2);
+    }
+    int leftover =
+        mTotalWidth
+        - contentWidthSum
+        - (1 + mContents.size()) * minPadding;
+    if (leftover < 0) {
+      System.out.println("no leftovers");
+      return false;
+    }
+
+    int space_around;
+    int space_between;
+    switch(mAlignContent) {
+      case CENTER:
+      default:
+        space_around = leftover / 2;
+        space_between = minPadding;
+        break;
+      case SPACE_BETWEEN:
+        space_around
+            = space_between
+            = (mTotalWidth - contentWidthSum) / (mContents.size() + 1);
+        break;
+    }
+
+    int curX = mX + space_around;
+    for (Layoutable l : mContents) {
+      l.setX(curX);
+      curX += space_between + l.getWidth();
+    }
+
     return true;
   }
 

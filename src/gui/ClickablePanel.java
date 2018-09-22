@@ -80,7 +80,7 @@ public class ClickablePanel implements Layoutable {
 
   // Layoutable Interface implementations
   public int getX() { return mLeft; }
-  public int gety() { return mTop; }
+  public int getY() { return mTop; }
   public int getWidth() { return mWidth; }
   public int getHeight() { return mHeight; }
   public void setX(int x) {

@@ -157,7 +157,7 @@ public class LayoutManager implements Layoutable {
 // Layoutable interface implementations
 
   public int getX() { return mX; }
-  public int gety() { return mY; }
+  public int getY() { return mY; }
   public int getWidth() { return mTotalWidth; }
   public int getHeight() { return mTotalHeight; }
 

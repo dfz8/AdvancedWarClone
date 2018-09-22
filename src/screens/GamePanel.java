@@ -52,5 +52,6 @@ public abstract class GamePanel extends JPanel {
     }
   }
 
+  public OmniPanel getParent() { return mParent; }
   public Graphics getBuffer() { return mBuffer; }
 }

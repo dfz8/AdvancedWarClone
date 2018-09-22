@@ -14,11 +14,12 @@ public class StyleUtil {
     TEXT_FONT,
   };
 
+  private static final Color BACKGROUND_COLOR = Color.BLUE;
   private static final Color HIGHLIGHT_COLOR = Color.GREEN;
-  private static final Color BACKGROUND_COLOR = Color.WHITE;
+  private static final Color LEVEL_BACKGROUND_COLOR = Color.ORANGE;
   private static final Color PANEL_BACKGROUND_COLOR = Color.YELLOW;
-  private static final Color TEXT_COLOR = Color.BLACK;
   private static final Color OUTLINE_COLOR = Color.GRAY;
+  private static final Color TEXT_COLOR = Color.BLACK;
 
   private static final Font titleFont = new Font("Agency FB", Font.BOLD, 25);
   private static final Font subtitleFont = new Font("Agency FB", Font.BOLD, 18);
@@ -53,6 +54,8 @@ public class StyleUtil {
   public Color getBackgroundColor() { return BACKGROUND_COLOR; }
 
   public Color getPanelBackgroundColor() { return PANEL_BACKGROUND_COLOR; }
+
+  public Color getLevelBackgroundColor() { return LEVEL_BACKGROUND_COLOR;}
 
   public Color getTextColor() { return TEXT_COLOR; }
 

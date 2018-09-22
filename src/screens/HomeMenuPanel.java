@@ -57,7 +57,10 @@ public class HomeMenuPanel extends GamePanel {
     mLayoutManager.add(playButton);
     mLayoutManager.add(optionButton);
   }
-  
+
   public void updateState(long timeElapsed) {}
-  public void updateVisualState() {}
+
+  public void updateVisualState() {
+    drawClickablePanelViews();
+  }
 }

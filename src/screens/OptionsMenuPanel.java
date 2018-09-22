@@ -26,5 +26,8 @@ public class OptionsMenuPanel extends GamePanel {
   }
 
   public void updateState(long timeElapsed) {}
-  public void updateVisualState() {}
+    
+  public void updateVisualState() {
+    drawClickablePanelViews();
+  }
 }

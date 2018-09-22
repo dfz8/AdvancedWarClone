@@ -49,7 +49,6 @@ public class OmniPanel extends JPanel {
     mTimer = new Timer(30, new RefreshListener());
     mMouseClickListener = new MouseClickListener();
     mMouseMotionListener = new MouseMotionListener();
-    add(mCurrentPanel);
     addMouseListener(mMouseClickListener);
     addMouseMotionListener(mMouseMotionListener);
     setFocusable(true);
@@ -85,8 +84,9 @@ public class OmniPanel extends JPanel {
         mBuffer.setColor(mStyleUtil.getBackgroundColor());
         mBuffer.fillRect(0, 0, GameUtil.WIDTH, GameUtil.HEIGHT);
 
-        // update graphics
+        // process updates
         mCurrentPanel.updateState(mCheckTime - mLastTime);
+        mCurrentPanel.updateVisualState();
 
         mLastTime = mCheckTime;
         repaint();

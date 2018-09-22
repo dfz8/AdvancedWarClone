@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 import src.gui.ClickablePanel;
 
-public class GamePanel extends JPanel {
+public abstract class GamePanel extends JPanel {
   private OmniPanel mParent;
   private Graphics mBuffer;
   private LinkedList<ClickablePanel> mClickablePanels;
@@ -18,7 +18,11 @@ public class GamePanel extends JPanel {
     mClickablePanels = new LinkedList<ClickablePanel>();
   }
 
-  public void updateState(long timeElapsed) {
+  public abstract void updateState(long timeElapsed);
+
+  public abstract void updateVisualState();
+
+  public void drawClickablePanelViews() {
     for (ClickablePanel cp : mClickablePanels) {
       cp.draw(mBuffer);
     }
@@ -47,4 +51,6 @@ public class GamePanel extends JPanel {
       cp.onMouseMove(x, y);
     }
   }
+
+  public Graphics getBuffer() { return mBuffer; }
 }

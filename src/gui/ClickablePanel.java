@@ -16,6 +16,7 @@ public class ClickablePanel implements Layoutable {
   private int mWidth;
   private int mHeight;
   private boolean isHoveredOver;
+  private boolean isEnabled;
   private StyleUtil mStyleUtil;
 
   public ClickablePanel(
@@ -39,11 +40,12 @@ public class ClickablePanel implements Layoutable {
     mHeight = height;
     mStyleUtil = styleUtil;
     isHoveredOver = false;
+    isEnabled = true;
   }
 
   public void draw(Graphics mBuffer) {
     // Draw highlight if mouse is over
-    if(isHoveredOver) {
+    if(isEnabled && isHoveredOver) {
       mBuffer.setColor(mStyleUtil.getHighlightColor());
       mBuffer.fillRect(mLeft - 5, mTop - 5, mWidth + 10, mHeight + 10);
     }
@@ -62,7 +64,7 @@ public class ClickablePanel implements Layoutable {
   }
 
   public void onMouseClick(int eX, int eY) {
-    if (isClickInBounds(eX, eY)) {
+    if (isEnabled && isClickInBounds(eX, eY)) {
       onClickCallback();
     }
   }
@@ -93,6 +95,7 @@ public class ClickablePanel implements Layoutable {
   public int getTop() { return mTop; }
   public int getRight() { return mRight; }
   public int getBottom() { return mBottom; }
+  public boolean getIsEnabled() { return isEnabled; }
   public StyleUtil getStyleUtil() { return mStyleUtil; }
   public void setLeft(int left) {
     mLeft = left;
@@ -110,4 +113,5 @@ public class ClickablePanel implements Layoutable {
     mHeight = height;
     mBottom = mTop + mHeight;
   }
+  public void setIsEnabled(boolean isEnabled) { this.isEnabled = isEnabled; }
 }

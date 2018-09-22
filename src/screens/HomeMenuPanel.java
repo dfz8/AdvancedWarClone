@@ -14,7 +14,6 @@ import src.utils.GameUtil;
 import src.utils.StyleUtil;
 
 public class HomeMenuPanel extends GamePanel {
-  private static final String GAME_DIR = "../game_files/";
   private LayoutManager mLayoutManager;
 
   public HomeMenuPanel(OmniPanel parent, Graphics buffer) {
@@ -37,7 +36,7 @@ public class HomeMenuPanel extends GamePanel {
             TextButton.TEXT_ALIGNMENT.CENTER,
             parent.getStyleUtil()) {
                 public void onClickCallback() {
-                  loadGame("testGame.json");
+                  parent.navigateToScreen(new LevelMenuPanel(parent, buffer));
             }
         };
 
@@ -58,10 +57,7 @@ public class HomeMenuPanel extends GamePanel {
     mLayoutManager.add(playButton);
     mLayoutManager.add(optionButton);
   }
-
-  public void loadGame(String filename) {
-    // GameLevelBuilder.buildFrom(filename);
-    System.out.println("Loading game from file: " + filename);
-  }
-
+  
+  public void updateState(long timeElapsed) {}
+  public void updateVisualState() {}
 }

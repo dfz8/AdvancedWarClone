@@ -24,4 +24,7 @@ public class OptionsMenuPanel extends GamePanel {
         };
     registerClickablePanel(backButton);
   }
+
+  public void updateState(long timeElapsed) {}
+  public void updateVisualState() {}
 }

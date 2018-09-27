@@ -26,4 +26,12 @@ public class Team {
   public boolean isDefeated() {
     return mUnits.size() == 0;
   }
+
+  public Team clone() {
+    Team teamClone = new Team();
+    for (Unit u : mUnits) {
+      teamClone.addUnit(u.clone());
+    }
+    return teamClone;
+  }
 }

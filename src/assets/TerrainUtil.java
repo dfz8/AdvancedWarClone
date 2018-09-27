@@ -1,5 +1,7 @@
 package src.assets;
 
+import src.assets.units.Unit;
+
 public class TerrainUtil {
   public static enum TERRAIN_TYPE {
     PLAINS,

@@ -1,5 +1,7 @@
 package src.assets;
 
+import src.assets.units.Unit;
+
 public class TerrainMap {
   private TerrainUtil.TERRAIN_TYPE[][] mMap;
   private Unit[][] location;

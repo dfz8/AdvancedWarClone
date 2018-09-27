@@ -1,7 +1,7 @@
-package src.assets;
+package src.assets.units;
 
+@SuppressWarnings("unchecked")
 public class Unit {
-
   protected enum UNIT_TYPE {
     LAND,
     SEA,
@@ -48,30 +48,19 @@ public class Unit {
   /* Current column on the map */
   private int mCol;
 
-  public Unit(
-      String name,
-      int cost,
-      int movementRange,
-      int attackRangeClose,
-      int attackRangeFar,
-      int attack,
-      int defense,
-      int health,
-      UNIT_TYPE type,
-      int row,
-      int col) {
+  public Unit(UnitBuilder<?> builder) {
     mId = ++globalUnitCounter;
-    mName = name;
-    mCost = cost;
-    mMovementRange = movementRange;
-    mAttackRangeClose = attackRangeClose;
-    mAttackRangeFar = attackRangeFar;
-    mAttack = attack;
-    mDefense = defense;
-    mHealth = health;
-    mUnitType = type;
-    mRow = row;
-    mCol = col;
+    mName = builder.mName;
+    mCost = builder.mCost;
+    mMovementRange = builder.mMovementRange;
+    mAttackRangeClose = builder.mAttackRangeClose;
+    mAttackRangeFar = builder.mAttackRangeFar;
+    mAttack = builder.mAttack;
+    mDefense = builder.mDefense;
+    mHealth = builder.mHealth;
+    mUnitType = builder.mUnitType;
+    mRow = builder.mRow;
+    mCol = builder.mCol;
   }
 
   /*
@@ -153,4 +142,71 @@ public class Unit {
   public void setCol(int col) {
     mCol = col;
   }
+
+////////// Builder ///////////////
+
+  public static class UnitBuilder<T extends UnitBuilder<T>> {
+    private String mName;
+    private int mCost;
+    private int mMovementRange;
+    private int mAttackRangeClose;
+    private int mAttackRangeFar;
+    private int mAttack;
+    private int mDefense;
+    private int mHealth;
+    private UNIT_TYPE mUnitType;
+    private int mRow;
+    private int mCol;
+
+    public UnitBuilder(String name, int row, int col) {
+      mName = name;
+      mRow = row;
+      mCol = col;
+    }
+
+    public T setCost(int cost) {
+      mCost = cost;
+      return (T) this;
+    }
+
+    public T setMovementRange(int range) {
+      mMovementRange = range;
+      return (T) this;
+    }
+
+    public T setAttackRangeClose(int range) {
+      mAttackRangeClose = range;
+      return (T) this;
+    }
+
+    public T setAttackRangeFar(int range) {
+      mAttackRangeFar = range;
+      return (T) this;
+    }
+
+    public T setAttack(int atk) {
+      mAttack = atk;
+      return (T) this;
+    }
+
+    public T setDefense(int def) {
+      mDefense = def;
+      return (T) this;
+    }
+
+    public T setHealth(int health) {
+      mHealth = health;
+      return (T) this;
+    }
+
+    public T setUnitType(UNIT_TYPE type) {
+      mUnitType = type;
+      return (T) this;
+    }
+
+    public Unit build() {
+      return new Unit(this);
+    }
+  }
+
 }

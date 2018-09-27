@@ -48,6 +48,8 @@ public class Unit {
   /* Current column on the map */
   private int mCol;
 
+  private Unit() {}
+
   public Unit(UnitBuilder<?> builder) {
     mId = ++globalUnitCounter;
     mName = builder.mName;
@@ -74,6 +76,23 @@ public class Unit {
 
   public boolean isDead() {
     return mHealth > 0;
+  }
+
+  public Unit clone() {
+    Unit unitClone = new Unit();
+    unitClone.mId = mId;
+    unitClone.mName = mName;
+    unitClone.mCost = mCost;
+    unitClone.mMovementRange = mMovementRange;
+    unitClone.mAttackRangeClose = mAttackRangeClose;
+    unitClone.mAttackRangeFar = mAttackRangeFar;
+    unitClone.mAttack = mAttack;
+    unitClone.mDefense = mDefense;
+    unitClone.mHealth = mHealth;
+    unitClone.mUnitType = mUnitType;
+    unitClone.mRow = mRow;
+    unitClone.mCol = mCol;
+    return unitClone;
   }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -129,6 +148,7 @@ public class Unit {
   public String toString() {
     return "[UNIT: " + mId + ", " + mName + "]";
   }
+
 ////////////////////////////////////////////////////////////////////////////////
 
   public void setHealth(int health) {

@@ -29,12 +29,19 @@ public class LevelState {
         .build();
   }
 
+  // Should be called whenever changes happens to a unit or to a team.
+  public LevelState updateTeams() {
+    return new LevelStateBuilder()
+        .from(this)
+        .setTeamsStateController(mTeamsStateController.clone())
+        .build();
+  }
+
   public static void saveState(LevelState state) {
   }
 
   public static void loadState(String saveFileName) {
   }
-
 
   public static class LevelStateBuilder {
     private int mTotalPlayers;
@@ -64,7 +71,7 @@ public class LevelState {
     }
 
     public LevelStateBuilder setTeamsStateController(TeamsStateController controller) {
-      mTeamsStateController = controller.clone();
+      mTeamsStateController = controller;
       return this;
     }
 

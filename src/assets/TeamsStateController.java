@@ -16,7 +16,7 @@ public class TeamsStateController {
     mTeams[player] = team;
   }
 
-  public void getTeam(int player) {
+  public Team getTeam(int player) {
     return mTeams[player];
   }
 

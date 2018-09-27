@@ -26,7 +26,6 @@ public class LevelMenuPanel extends GamePanel {
 
     // TODO: load level state from save. then populate contents of levels
 
-
     // proof of concept:
     mLevels = new LinkedList<LevelRowPanel>();
     LevelRowPanel tutorialLevels = new LevelRowPanel(parent, buffer, "Tutorial", 500, 100);

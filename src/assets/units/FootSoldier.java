@@ -2,14 +2,14 @@ package src.assets.units;
 
 public class FootSoldier extends Unit {
 
-  public FootSoldier(FootSoldierBuilder builder) {
+  public FootSoldier(Builder builder) {
     super(builder);
   }
 
-  public static class FootSoldierBuilder
-      extends Unit.UnitBuilder<FootSoldierBuilder> {
+  public static class Builder
+      extends Unit.Builder<Builder> {
 
-    public FootSoldierBuilder(int row, int col) {
+    public Builder(int row, int col) {
       super("Foot Soldier", row, col)
         .setCost(20)
         .setMovementRange(3)

@@ -50,7 +50,7 @@ public class Unit {
 
   private Unit() {}
 
-  public Unit(UnitBuilder<?> builder) {
+  public Unit(Builder<?> builder) {
     mId = ++globalUnitCounter;
     mName = builder.mName;
     mCost = builder.mCost;
@@ -165,7 +165,7 @@ public class Unit {
 
 ////////// Builder ///////////////
 
-  public static class UnitBuilder<T extends UnitBuilder<T>> {
+  public static class Builder<T extends Builder<T>> {
     private String mName;
     private int mCost;
     private int mMovementRange;
@@ -178,7 +178,7 @@ public class Unit {
     private int mRow;
     private int mCol;
 
-    public UnitBuilder(String name, int row, int col) {
+    public Builder(String name, int row, int col) {
       mName = name;
       mRow = row;
       mCol = col;

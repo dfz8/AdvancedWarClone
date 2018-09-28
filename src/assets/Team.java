@@ -1,5 +1,6 @@
 package src.assets;
 
+import java.lang.StringBuilder;
 import java.util.LinkedList;
 
 import src.assets.units.Unit;
@@ -33,5 +34,15 @@ public class Team {
       teamClone.addUnit(u.clone());
     }
     return teamClone;
+  }
+
+  public String toString() {
+    StringBuilder sb = new StringBuilder("[Team:" + mUnits.size() +",");
+    for (Unit u : mUnits) {
+      sb.append(u);
+      sb.append(",");
+    }
+    sb.append("]");
+    return sb.toString();
   }
 }

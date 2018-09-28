@@ -1,5 +1,7 @@
 package src;
 
+import java.lang.StringBuilder;
+
 import src.assets.TeamsStateController;
 
 /**
@@ -39,10 +41,15 @@ public class LevelState {
         .build();
   }
 
-  public static void saveState(LevelState state) {
-  }
-
-  public static void loadState(String saveFileName) {
+  public String toString() {
+    StringBuilder sb = new StringBuilder("[LevelState:");
+    sb.append(mLevelId + ",");
+    sb.append(mTotalPlayers + ",");
+    sb.append(mWhoseTurn + ",");
+    sb.append(mTeamsStateController);
+    sb.append(",");
+    sb.append("]");
+    return sb.toString();
   }
 
   public static class Builder {

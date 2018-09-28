@@ -1,5 +1,7 @@
 package src.assets.units;
 
+import java.lang.StringBuilder;
+
 @SuppressWarnings("unchecked")
 public class Unit {
   protected enum UNIT_TYPE {
@@ -146,7 +148,21 @@ public class Unit {
   }
 
   public String toString() {
-    return "[UNIT: " + mId + ", " + mName + "]";
+    StringBuilder sb = new StringBuilder("[Unit:");
+    sb.append(mId + ",");
+    sb.append(mName + ",");
+    sb.append(mCost + ",");
+    sb.append(mMovementRange + ",");
+    sb.append(mAttackRangeClose + ",");
+    sb.append(mAttackRangeFar + ",");
+    sb.append(mAttack + ",");
+    sb.append(mDefense + ",");
+    sb.append(mHealth + ",");
+    sb.append(mUnitType + ",");
+    sb.append(mRow + ",");
+    sb.append(mCol + ",");
+    sb.append("]");
+    return sb.toString();
   }
 
 ////////////////////////////////////////////////////////////////////////////////

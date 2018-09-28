@@ -1,5 +1,7 @@
 package src.assets;
 
+import java.lang.StringBuilder;
+
 /**
  * This class handles the logic for handling teams.
  **/
@@ -28,5 +30,20 @@ public class TeamsStateController {
     }
     teamsStateControllerClone.mTeams = teamsClone;
     return teamsStateControllerClone;
+  }
+
+  public String toString() {
+    StringBuilder sb =
+        new StringBuilder("[TeamStateController:" + mTeams.length + ",");
+    for (Team t : mTeams) {
+      sb.append(t);
+      sb.append(",");
+    }
+    sb.append("]");
+    return sb.toString();
+  }
+
+  public static TeamsStateController fromString(String str) {
+    return null;
   }
 }

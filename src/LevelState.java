@@ -7,6 +7,7 @@ import src.assets.TeamsStateController;
  */
 public class LevelState {
   // constants for each level:
+  private String mLevelId;
   private int mTotalPlayers;
 
   // values that change per state:
@@ -16,14 +17,15 @@ public class LevelState {
   public LevelState(String levelConfigFileName) {
   }
 
-  public LevelState(LevelStateBuilder builder) {
+  public LevelState(Builder builder) {
+    mLevelId = builder.mLevelId;
     mTotalPlayers = builder.mTotalPlayers;
     mWhoseTurn = builder.mWhoseTurn;
     mTeamsStateController = builder.mTeamsStateController;
   }
 
   public LevelState endTurn() {
-    return new LevelStateBuilder()
+    return new Builder()
         .from(this)
         .setWhoseTurn((mWhoseTurn + 1) % mTotalPlayers)
         .build();
@@ -31,7 +33,7 @@ public class LevelState {
 
   // Should be called whenever changes happens to a unit or to a team.
   public LevelState updateTeams() {
-    return new LevelStateBuilder()
+    return new Builder()
         .from(this)
         .setTeamsStateController(mTeamsStateController.clone())
         .build();
@@ -43,14 +45,16 @@ public class LevelState {
   public static void loadState(String saveFileName) {
   }
 
-  public static class LevelStateBuilder {
+  public static class Builder {
+    private String mLevelId;
     private int mTotalPlayers;
     private int mWhoseTurn;
     private TeamsStateController mTeamsStateController;
 
-    private LevelStateBuilder() {}
+    private Builder() {}
 
-    public LevelStateBuilder(int totalPlayers) {
+    public Builder(String levelId, int totalPlayers) {
+      mLevelId = levelId;
       mTotalPlayers = totalPlayers;
     }
 
@@ -58,19 +62,19 @@ public class LevelState {
      * Copy over current values, any updates should be done through
      * the set functions below.
      **/
-    public LevelStateBuilder from(LevelState state) {
+    public Builder from(LevelState state) {
       mTotalPlayers = state.mTotalPlayers;
       mWhoseTurn = state.mWhoseTurn;
       mTeamsStateController = state.mTeamsStateController;
       return this;
     }
 
-    public LevelStateBuilder setWhoseTurn(int player) {
+    public Builder setWhoseTurn(int player) {
       mWhoseTurn = player;
       return this;
     }
 
-    public LevelStateBuilder setTeamsStateController(TeamsStateController controller) {
+    public Builder setTeamsStateController(TeamsStateController controller) {
       mTeamsStateController = controller;
       return this;
     }

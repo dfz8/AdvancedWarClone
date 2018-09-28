@@ -4,6 +4,7 @@ import java.lang.StringBuilder;
 import java.util.LinkedList;
 
 import src.assets.units.Unit;
+import src.utils.StringInputTokenizer;
 
 public class Team {
   private LinkedList<Unit> mUnits;
@@ -37,12 +38,25 @@ public class Team {
   }
 
   public String toString() {
-    StringBuilder sb = new StringBuilder("[Team:" + mUnits.size() +",");
+    StringBuilder sb = new StringBuilder("[Team,");
+    sb.append(mUnits.size() +",");
     for (Unit u : mUnits) {
       sb.append(u);
       sb.append(",");
     }
     sb.append("]");
     return sb.toString();
+  }
+
+  public static Team fromString(StringInputTokenizer tokenizer)
+      throws Exception {
+    tokenizer.verifyStartReading("Team");
+    Team team = new Team();
+    int size = tokenizer.readInt();
+    for (int i = 0; i < size; i++) {
+      team.addUnit(Unit.fromString(tokenizer));
+    }
+    tokenizer.verifyEndReading();
+    return team;
   }
 }

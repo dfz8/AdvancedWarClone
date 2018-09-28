@@ -2,6 +2,8 @@ package src.assets;
 
 import java.lang.StringBuilder;
 
+import src.utils.StringInputTokenizer;
+
 /**
  * This class handles the logic for handling teams.
  **/
@@ -22,6 +24,10 @@ public class TeamsStateController {
     return mTeams[player];
   }
 
+  public int getNumberOfTeams() {
+    return mTeams.length;
+  }
+
   public TeamsStateController clone() {
     TeamsStateController teamsStateControllerClone = new TeamsStateController();
     Team[] teamsClone = new Team[mTeams.length];
@@ -33,8 +39,8 @@ public class TeamsStateController {
   }
 
   public String toString() {
-    StringBuilder sb =
-        new StringBuilder("[TeamStateController:" + mTeams.length + ",");
+    StringBuilder sb = new StringBuilder("[TeamsStateController,");
+    sb.append(mTeams.length + ",");
     for (Team t : mTeams) {
       sb.append(t);
       sb.append(",");
@@ -43,7 +49,15 @@ public class TeamsStateController {
     return sb.toString();
   }
 
-  public static TeamsStateController fromString(String str) {
-    return null;
+  public static TeamsStateController fromString(StringInputTokenizer tokenizer)
+      throws Exception {
+    tokenizer.verifyStartReading("TeamsStateController");
+    TeamsStateController controller = new TeamsStateController();
+    int numTeams = tokenizer.readInt();
+    for (int i = 0; i < numTeams; i++) {
+      controller.setTeam(i, Team.fromString(tokenizer));
+    }
+    tokenizer.verifyEndReading();
+    return controller;
   }
 }

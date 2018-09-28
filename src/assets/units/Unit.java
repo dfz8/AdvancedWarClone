@@ -2,6 +2,8 @@ package src.assets.units;
 
 import java.lang.StringBuilder;
 
+import src.utils.StringInputTokenizer;
+
 @SuppressWarnings("unchecked")
 public class Unit {
   protected enum UNIT_TYPE {
@@ -13,9 +15,6 @@ public class Unit {
 
   /* Counter to keep track of total units created */
   private static int globalUnitCounter = 0;
-
-  /* Specific id corresponding to the created unit */
-  private int mId;
 
   /* Name of the unit */
   private String mName;
@@ -53,7 +52,6 @@ public class Unit {
   private Unit() {}
 
   public Unit(Builder<?> builder) {
-    mId = ++globalUnitCounter;
     mName = builder.mName;
     mCost = builder.mCost;
     mMovementRange = builder.mMovementRange;
@@ -82,7 +80,6 @@ public class Unit {
 
   public Unit clone() {
     Unit unitClone = new Unit();
-    unitClone.mId = mId;
     unitClone.mName = mName;
     unitClone.mCost = mCost;
     unitClone.mMovementRange = mMovementRange;
@@ -98,10 +95,6 @@ public class Unit {
   }
 
 ////////////////////////////////////////////////////////////////////////////////
-
-  public int getId() {
-    return mId;
-  }
 
   public String getName() {
     return mName;
@@ -147,9 +140,24 @@ public class Unit {
     return mCol;
   }
 
+////////////////////////////////////////////////////////////////////////////////
+
+  public void setHealth(int health) {
+    mHealth = health;
+  }
+
+  public void setRow(int row) {
+    mRow = row;
+  }
+
+  public void setCol(int col) {
+    mCol = col;
+  }
+
+////////////////////////////////////////////////////////////////////////////////
+
   public String toString() {
-    StringBuilder sb = new StringBuilder("[Unit:");
-    sb.append(mId + ",");
+    StringBuilder sb = new StringBuilder("[Unit,");
     sb.append(mName + ",");
     sb.append(mCost + ",");
     sb.append(mMovementRange + ",");
@@ -167,19 +175,22 @@ public class Unit {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-  public void setHealth(int health) {
-    mHealth = health;
+  public static Unit fromString(StringInputTokenizer tokenizer) throws Exception {
+    tokenizer.verifyStartReading("Unit");
+    Builder builder = new Builder()
+        .setName(tokenizer.readString())
+        .setCost(tokenizer.readInt())
+        .setMovementRange(tokenizer.readInt())
+        .setAttackRangeClose(tokenizer.readInt())
+        .setAttackRangeFar(tokenizer.readInt())
+        .setAttack(tokenizer.readInt())
+        .setDefense(tokenizer.readInt())
+        .setHealth(tokenizer.readInt())
+        .setRow(tokenizer.readInt())
+        .setCol(tokenizer.readInt());
+    tokenizer.verifyEndReading();
+    return builder.build();
   }
-
-  public void setRow(int row) {
-    mRow = row;
-  }
-
-  public void setCol(int col) {
-    mCol = col;
-  }
-
-////////// Builder ///////////////
 
   public static class Builder<T extends Builder<T>> {
     private String mName;
@@ -194,10 +205,27 @@ public class Unit {
     private int mRow;
     private int mCol;
 
+    public Builder() {}
+
     public Builder(String name, int row, int col) {
       mName = name;
       mRow = row;
       mCol = col;
+    }
+
+    public T setName(String name) {
+      mName = name;
+      return (T) this;
+    }
+
+    public T setRow(int row) {
+      mRow = row;
+      return (T) this;
+    }
+
+    public T setCol(int col) {
+      mCol = col;
+      return (T) this;
     }
 
     public T setCost(int cost) {

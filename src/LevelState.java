@@ -3,6 +3,7 @@ package src;
 import java.lang.StringBuilder;
 
 import src.assets.TeamsStateController;
+import src.utils.StringInputTokenizer;
 
 /**
  * Create a pure-ish state representation for the current state of a level
@@ -42,7 +43,7 @@ public class LevelState {
   }
 
   public String toString() {
-    StringBuilder sb = new StringBuilder("[LevelState:");
+    StringBuilder sb = new StringBuilder("[LevelState,");
     sb.append(mLevelId + ",");
     sb.append(mTotalPlayers + ",");
     sb.append(mWhoseTurn + ",");
@@ -50,6 +51,18 @@ public class LevelState {
     sb.append(",");
     sb.append("]");
     return sb.toString();
+  }
+
+  public static LevelState fromString(StringInputTokenizer tokenizer)
+      throws Exception {
+    tokenizer.verifyStartReading("LevelState");
+    Builder builder = new Builder()
+        .setLevelId(tokenizer.readString())
+        .setTotalPlayers(tokenizer.readInt())
+        .setWhoseTurn(tokenizer.readInt())
+        .setTeamsStateController(TeamsStateController.fromString(tokenizer));
+    tokenizer.verifyEndReading();
+    return builder.build();
   }
 
   public static class Builder {
@@ -73,6 +86,16 @@ public class LevelState {
       mTotalPlayers = state.mTotalPlayers;
       mWhoseTurn = state.mWhoseTurn;
       mTeamsStateController = state.mTeamsStateController;
+      return this;
+    }
+
+    public Builder setLevelId(String levelId) {
+      mLevelId = levelId;
+      return this;
+    }
+
+    public Builder setTotalPlayers(int totalPlayers) {
+      mTotalPlayers = totalPlayers;
       return this;
     }
 

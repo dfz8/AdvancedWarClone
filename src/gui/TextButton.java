@@ -1,9 +1,9 @@
-package src.gui;
+package gui;
+
+import utils.StyleUtil;
 
 import java.awt.Font;
 import java.awt.Graphics;
-
-import src.utils.StyleUtil;
 
 public class TextButton extends ClickablePanel {
   public static enum TEXT_ALIGNMENT {

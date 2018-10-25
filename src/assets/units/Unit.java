@@ -1,8 +1,6 @@
-package src.assets.units;
+package assets.units;
 
-import java.lang.StringBuilder;
-
-import src.utils.StringInputTokenizer;
+import utils.StringInputTokenizer;
 
 @SuppressWarnings("unchecked")
 public class Unit {

@@ -1,17 +1,11 @@
-package src.screens;
+package screens;
 
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import gui.TextButton;
+import gui.layouts.LayoutManager;
+import utils.GameUtil;
+import utils.StyleUtil;
+
 import java.awt.Graphics;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-
-import src.gui.ClickablePanel;
-import src.gui.TextButton;
-import src.gui.layouts.LayoutManager;
-import src.utils.GameUtil;
-import src.utils.StyleUtil;
 
 public class HomeMenuPanel extends GamePanel {
   private LayoutManager mLayoutManager;

@@ -1,6 +1,6 @@
-package src.assets;
+package assets;
 
-import src.assets.units.Unit;
+import assets.units.Unit;
 
 public class TerrainMap {
   private TerrainUtil.TERRAIN_TYPE[][] mMap;

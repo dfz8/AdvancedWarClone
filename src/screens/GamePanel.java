@@ -1,11 +1,11 @@
-package src.screens;
+package screens;
 
-import java.awt.event.MouseEvent;
-import java.awt.Graphics;
-import java.util.LinkedList;
+import gui.ClickablePanel;
+
 import javax.swing.JPanel;
-
-import src.gui.ClickablePanel;
+import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.util.LinkedList;
 
 public abstract class GamePanel extends JPanel {
   private OmniPanel mParent;

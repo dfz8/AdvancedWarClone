@@ -1,8 +1,6 @@
-package src.assets;
+package assets;
 
-import java.lang.StringBuilder;
-
-import src.utils.StringInputTokenizer;
+import utils.StringInputTokenizer;
 
 /**
  * This class handles the logic for handling teams.

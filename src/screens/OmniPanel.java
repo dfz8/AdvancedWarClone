@@ -1,23 +1,21 @@
 /**
  * This class contains all the listeners and hosts the current visible content.
  */
-package src.screens;
+package screens;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseMotionAdapter;
-import java.util.Stack;
+import utils.GameUtil;
+import utils.StyleUtil;
+
 import javax.swing.JPanel;
 import javax.swing.Timer;
-
-import src.gui.ClickablePanel;
-import src.utils.GameUtil;
-import src.utils.StyleUtil;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.image.BufferedImage;
+import java.util.Stack;
 
 public class OmniPanel extends JPanel {
   // approx 30hz update

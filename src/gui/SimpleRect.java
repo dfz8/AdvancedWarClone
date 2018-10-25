@@ -1,4 +1,4 @@
-package src.gui;
+package gui;
 
 public class SimpleRect {
   private int mLeft;

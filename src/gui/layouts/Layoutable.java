@@ -1,4 +1,4 @@
-package src.gui.layouts;
+package gui.layouts;
 
 public interface Layoutable {
   int getX();

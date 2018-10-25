@@ -1,12 +1,9 @@
-package src.gui;
+package gui;
 
-import java.awt.Color;
+import gui.layouts.Layoutable;
+import utils.StyleUtil;
+
 import java.awt.Graphics;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseEvent;
-
-import src.gui.layouts.Layoutable;
-import src.utils.StyleUtil;
 
 public class ClickablePanel implements Layoutable {
   private int mLeft;

@@ -1,10 +1,9 @@
-package src.assets;
+package assets;
 
-import java.lang.StringBuilder;
+import assets.units.Unit;
+import utils.StringInputTokenizer;
+
 import java.util.LinkedList;
-
-import src.assets.units.Unit;
-import src.utils.StringInputTokenizer;
 
 public class Team {
   private LinkedList<Unit> mUnits;

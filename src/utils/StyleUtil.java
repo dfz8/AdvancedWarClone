@@ -1,11 +1,11 @@
-package src.utils;
+package utils;
+
+import gui.SimpleRect;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.FontMetrics;
-
-import src.gui.SimpleRect;
+import java.awt.Graphics;
 
 public class StyleUtil {
   public static enum FONTS {

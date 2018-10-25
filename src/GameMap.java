@@ -1,9 +1,8 @@
 /**
  * This class is responsibile for each game level
  */
- package src;
- 
- import src.assets.*;
+
+ import assets.*;
 
  public class GameMap {
    private TerrainMap mTerrainMap;

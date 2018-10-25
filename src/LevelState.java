@@ -1,9 +1,8 @@
-package src;
 
 import java.lang.StringBuilder;
 
-import src.assets.TeamsStateController;
-import src.utils.StringInputTokenizer;
+import assets.TeamsStateController;
+import utils.StringInputTokenizer;
 
 /**
  * Create a pure-ish state representation for the current state of a level

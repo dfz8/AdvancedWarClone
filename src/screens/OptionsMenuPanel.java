@@ -1,9 +1,9 @@
-package src.screens;
+package screens;
+
+import gui.TextButton;
+import utils.StyleUtil;
 
 import java.awt.Graphics;
-
-import src.gui.TextButton;
-import src.utils.StyleUtil;
 
 public class OptionsMenuPanel extends GamePanel {
   public OptionsMenuPanel(OmniPanel parent, Graphics buffer) {

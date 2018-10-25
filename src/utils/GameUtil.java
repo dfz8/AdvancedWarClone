@@ -1,4 +1,4 @@
-package src.utils;
+package utils;
 
 public class GameUtil {
   public static final int HEIGHT = 500;

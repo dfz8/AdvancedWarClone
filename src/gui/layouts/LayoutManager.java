@@ -1,4 +1,4 @@
-package src.gui.layouts;
+package gui.layouts;
 
 import java.util.LinkedList;
 

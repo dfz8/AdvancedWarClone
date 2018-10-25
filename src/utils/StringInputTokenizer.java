@@ -1,6 +1,7 @@
-package src.utils;
+package utils;
 
 import java.util.StringTokenizer;
+
 import static java.lang.Integer.parseInt;
 
 public class StringInputTokenizer {

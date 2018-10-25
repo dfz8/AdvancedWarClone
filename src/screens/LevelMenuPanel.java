@@ -1,14 +1,14 @@
-package src.screens;
+package screens;
 
-import java.awt.event.MouseEvent;
+import gui.ClickablePanel;
+import gui.TextButton;
+import gui.layouts.LayoutManager;
+import utils.GameUtil;
+import utils.StyleUtil;
+
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
 import java.util.LinkedList;
-
-import src.gui.ClickablePanel;
-import src.gui.TextButton;
-import src.gui.layouts.LayoutManager;
-import src.utils.GameUtil;
-import src.utils.StyleUtil;
 
 public class LevelMenuPanel extends GamePanel {
   private LayoutManager mLevelLayoutManager;

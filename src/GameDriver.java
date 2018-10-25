@@ -1,9 +1,8 @@
-package src;
 
 import javax.swing.JFrame;
 
-import src.utils.GameUtil;
-import src.screens.OmniPanel;
+import utils.GameUtil;
+import screens.OmniPanel;
 
 public class GameDriver {
 

@@ -28,7 +28,7 @@ public class ClickablePanel implements Layoutable {
       int top,
       int width,
       int height,
-      StyleUtil styleUtil){
+      StyleUtil styleUtil) {
     mLeft = left;
     mTop = top;
     mRight = left + width;
@@ -42,7 +42,7 @@ public class ClickablePanel implements Layoutable {
 
   public void draw(Graphics mBuffer) {
     // Draw highlight if mouse is over
-    if(isEnabled && isHoveredOver) {
+    if (isEnabled && isHoveredOver) {
       mBuffer.setColor(mStyleUtil.getHighlightColor());
       mBuffer.fillRect(mLeft - 5, mTop - 5, mWidth + 10, mHeight + 10);
     }
@@ -76,39 +76,76 @@ public class ClickablePanel implements Layoutable {
   }
 
   // Layoutable Interface implementations
-  public int getX() { return mLeft; }
-  public int getY() { return mTop; }
-  public int getWidth() { return mWidth; }
-  public int getHeight() { return mHeight; }
+  public int getX() {
+    return mLeft;
+  }
+
+  public int getY() {
+    return mTop;
+  }
+
+  public int getWidth() {
+    return mWidth;
+  }
+
+  public int getHeight() {
+    return mHeight;
+  }
+
   public void setX(int x) {
     setLeft(x);
   }
+
   public void setY(int y) {
     setTop(y);
   }
 
   // getter & setters:
-  public int getLeft() { return mLeft; }
-  public int getTop() { return mTop; }
-  public int getRight() { return mRight; }
-  public int getBottom() { return mBottom; }
-  public boolean getIsEnabled() { return isEnabled; }
-  public StyleUtil getStyleUtil() { return mStyleUtil; }
+  public int getLeft() {
+    return mLeft;
+  }
+
+  public int getTop() {
+    return mTop;
+  }
+
+  public int getRight() {
+    return mRight;
+  }
+
+  public int getBottom() {
+    return mBottom;
+  }
+
+  public boolean getIsEnabled() {
+    return isEnabled;
+  }
+
+  public StyleUtil getStyleUtil() {
+    return mStyleUtil;
+  }
+
   public void setLeft(int left) {
     mLeft = left;
     mRight = mLeft + mWidth;
   }
+
   public void setTop(int top) {
     mTop = top;
     mBottom = mTop + mHeight;
   }
+
   public void setWidth(int width) {
     mWidth = width;
     mRight = mLeft + mWidth;
   }
+
   public void setHeight(int height) {
     mHeight = height;
     mBottom = mTop + mHeight;
   }
-  public void setIsEnabled(boolean isEnabled) { this.isEnabled = isEnabled; }
+
+  public void setIsEnabled(boolean isEnabled) {
+    this.isEnabled = isEnabled;
+  }
 }

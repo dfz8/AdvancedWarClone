@@ -6,7 +6,7 @@ import utils.StyleUtil;
 import java.awt.Graphics;
 
 public class OptionsMenuPanel extends GamePanel {
-  public OptionsMenuPanel(OmniPanel parent, Graphics buffer) {
+  public OptionsMenuPanel(final OmniPanel parent, final Graphics buffer) {
     super(parent, buffer);
 
     TextButton backButton = new TextButton(

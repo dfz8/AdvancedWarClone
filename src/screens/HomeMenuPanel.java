@@ -10,7 +10,7 @@ import java.awt.Graphics;
 public class HomeMenuPanel extends GamePanel {
   private LayoutManager mLayoutManager;
 
-  public HomeMenuPanel(OmniPanel parent, Graphics buffer) {
+  public HomeMenuPanel(final OmniPanel parent, final Graphics buffer) {
     super(parent, buffer);
     mLayoutManager = new LayoutManager(
       0,

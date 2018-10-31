@@ -1,11 +1,13 @@
 package assets;
 
 import assets.units.Unit;
+import assets.units.UnitUtil;
+import utils.Stateful;
 import utils.StringInputTokenizer;
 
 import java.util.LinkedList;
 
-public class Team {
+public class Team implements Stateful<Team> {
   private LinkedList<Unit> mUnits;
 
   public Team() {
@@ -36,7 +38,8 @@ public class Team {
     return teamClone;
   }
 
-  public String toString() {
+  @Override
+  public String serialize() {
     StringBuilder sb = new StringBuilder("[Team,");
     sb.append(mUnits.size() +",");
     for (Unit u : mUnits) {
@@ -47,13 +50,13 @@ public class Team {
     return sb.toString();
   }
 
-  public static Team fromString(StringInputTokenizer tokenizer)
-      throws Exception {
+  @Override
+  public Team deserialize(StringInputTokenizer tokenizer) throws Exception {
     tokenizer.verifyStartReading("Team");
     Team team = new Team();
     int size = tokenizer.readInt();
     for (int i = 0; i < size; i++) {
-      team.addUnit(Unit.fromString(tokenizer));
+      team.addUnit(UnitUtil.deserialize(tokenizer));
     }
     tokenizer.verifyEndReading();
     return team;

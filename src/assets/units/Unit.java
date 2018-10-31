@@ -1,7 +1,10 @@
 package assets.units;
 
+import utils.Stateful;
+import utils.StringInputTokenizer;
+
 @SuppressWarnings("unchecked")
-public abstract class Unit {
+public abstract class Unit implements Stateful<Unit> {
   protected enum UnitType {
     LAND,
     SEA,
@@ -57,6 +60,20 @@ public abstract class Unit {
   public abstract int getBaseHealth();
 
   public abstract UnitType getUnitType();
+
+////////////////////////////////////////////////////////////////////////////////
+  @Override
+  public abstract Unit clone();
+
+  @Override
+  public String serialize() {
+    return UnitUtil.serialize(this);
+  }
+
+  @Override
+  public Unit deserialize(StringInputTokenizer tokenizer) throws Exception {
+    return UnitUtil.deserialize(tokenizer);
+  }
 
 ////////////////////////////////////////////////////////////////////////////////
 

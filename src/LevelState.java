@@ -2,12 +2,13 @@
 import java.lang.StringBuilder;
 
 import assets.TeamsStateController;
+import utils.Stateful;
 import utils.StringInputTokenizer;
 
 /**
  * Create a pure-ish state representation for the current state of a level
  */
-public class LevelState {
+public class LevelState implements Stateful<LevelState> {
   // constants for each level:
   private String mLevelId;
   private int mTotalPlayers;
@@ -41,7 +42,8 @@ public class LevelState {
         .build();
   }
 
-  public String toString() {
+  @Override
+  public String serialize() {
     StringBuilder sb = new StringBuilder("[LevelState,");
     sb.append(mLevelId + ",");
     sb.append(mTotalPlayers + ",");
@@ -52,16 +54,21 @@ public class LevelState {
     return sb.toString();
   }
 
-  public static LevelState fromString(StringInputTokenizer tokenizer)
-      throws Exception {
+  @Override
+  public LevelState deserialize(StringInputTokenizer tokenizer) throws Exception {
     tokenizer.verifyStartReading("LevelState");
     Builder builder = new Builder()
         .setLevelId(tokenizer.readString())
         .setTotalPlayers(tokenizer.readInt())
         .setWhoseTurn(tokenizer.readInt())
-        .setTeamsStateController(TeamsStateController.fromString(tokenizer));
+        .setTeamsStateController(mTeamsStateController.deserialize(tokenizer));
     tokenizer.verifyEndReading();
     return builder.build();
+  }
+
+  @Override
+  public LevelState clone() {
+    return new Builder().from(this).build();
   }
 
   public static class Builder {
@@ -82,6 +89,7 @@ public class LevelState {
      * the set functions below.
      **/
     public Builder from(LevelState state) {
+      mLevelId = state.mLevelId;
       mTotalPlayers = state.mTotalPlayers;
       mWhoseTurn = state.mWhoseTurn;
       mTeamsStateController = state.mTeamsStateController;

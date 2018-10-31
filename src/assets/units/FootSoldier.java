@@ -46,4 +46,9 @@ public class FootSoldier extends Unit {
   public UnitType getUnitType() {
     return UnitType.LAND;
   }
+
+  @Override
+  public FootSoldier clone() {
+    return new FootSoldier(getRow(), getCol(), getCurrentHealth());
+  }
 }

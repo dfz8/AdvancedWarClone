@@ -1,69 +1,31 @@
 package assets.units;
 
-import utils.StringInputTokenizer;
-
 @SuppressWarnings("unchecked")
-public class Unit {
-  protected enum UNIT_TYPE {
+public abstract class Unit {
+  protected enum UnitType {
     LAND,
     SEA,
     AIR,
     LAND_SEA
   }
 
-  /* Counter to keep track of total units created */
-  private static int globalUnitCounter = 0;
-
-  /* Name of the unit */
-  private String mName;
-
-  /* Cost to produce unit */
-  private int mCost;
-
-  /* Allowed movement steps */
-  private int mMovementRange;
-
-  /* Closest distance able to attack */
-  private int mAttackRangeClose;
-
-  /* Farthest distance able to attack */
-  private int mAttackRangeFar;
-
-  /* Attack power of unit */
-  private int mAttack;
-
-  /* Defense power of unit */
-  private int mDefense;
-
-  /* Total health of unit */
-  private int mHealth;
-
-  /* The type of unit, determines where it can go. */
-  private UNIT_TYPE mUnitType;
-
-  /* Current row on the map */
+  private int mCurrentHealth;
   private int mRow;
-
-  /* Current column on the map */
   private int mCol;
 
-  private Unit() {}
-
-  public Unit(Builder<?> builder) {
-    mName = builder.mName;
-    mCost = builder.mCost;
-    mMovementRange = builder.mMovementRange;
-    mAttackRangeClose = builder.mAttackRangeClose;
-    mAttackRangeFar = builder.mAttackRangeFar;
-    mAttack = builder.mAttack;
-    mDefense = builder.mDefense;
-    mHealth = builder.mHealth;
-    mUnitType = builder.mUnitType;
-    mRow = builder.mRow;
-    mCol = builder.mCol;
+  public Unit(int row, int col) {
+    mRow = row;
+    mCol = col;
+    mCurrentHealth = getBaseHealth();
   }
 
-  /*
+  public Unit(int row, int col, int currentHealth) {
+    mRow = row;
+    mCol = col;
+    mCurrentHealth = currentHealth;
+  }
+
+  /**
    * Precondition: changing current location by dr and dc will not put the unit
    * out of bounds.
    */
@@ -73,61 +35,33 @@ public class Unit {
   }
 
   public boolean isDead() {
-    return mHealth > 0;
-  }
-
-  public Unit clone() {
-    Unit unitClone = new Unit();
-    unitClone.mName = mName;
-    unitClone.mCost = mCost;
-    unitClone.mMovementRange = mMovementRange;
-    unitClone.mAttackRangeClose = mAttackRangeClose;
-    unitClone.mAttackRangeFar = mAttackRangeFar;
-    unitClone.mAttack = mAttack;
-    unitClone.mDefense = mDefense;
-    unitClone.mHealth = mHealth;
-    unitClone.mUnitType = mUnitType;
-    unitClone.mRow = mRow;
-    unitClone.mCol = mCol;
-    return unitClone;
+    return getCurrentHealth() > 0;
   }
 
 ////////////////////////////////////////////////////////////////////////////////
 
-  public String getName() {
-    return mName;
-  }
+  public abstract String getName();
 
-  public int getCost() {
-    return mCost;
-  }
+  public abstract int getCost();
 
-  public int getMovementRange() {
-    return mMovementRange;
-  }
+  public abstract int getMovementRange();
 
-  public int getAttackRangeClose() {
-    return mAttackRangeClose;
-  }
+  public abstract int getAttackRangeMin();
 
-  public int getAttackRangeFar() {
-    return mAttackRangeFar;
-  }
+  public abstract int getAttackRangeMax();
 
-  public int getAttack() {
-    return mAttack;
-  }
+  public abstract int getBaseAttack();
 
-  public int getDefense() {
-    return mDefense;
-  }
+  public abstract int getBaseDefense();
 
-  public int getHealth() {
-    return mHealth;
-  }
+  public abstract int getBaseHealth();
 
-  public UNIT_TYPE getType() {
-    return mUnitType;
+  public abstract UnitType getUnitType();
+
+////////////////////////////////////////////////////////////////////////////////
+
+  public int getCurrentHealth() {
+    return mCurrentHealth;
   }
 
   public int getRow() {
@@ -138,12 +72,6 @@ public class Unit {
     return mCol;
   }
 
-////////////////////////////////////////////////////////////////////////////////
-
-  public void setHealth(int health) {
-    mHealth = health;
-  }
-
   public void setRow(int row) {
     mRow = row;
   }
@@ -152,123 +80,7 @@ public class Unit {
     mCol = col;
   }
 
-////////////////////////////////////////////////////////////////////////////////
-
-  public String toString() {
-    StringBuilder sb = new StringBuilder("[Unit,");
-    sb.append(mName + ",");
-    sb.append(mCost + ",");
-    sb.append(mMovementRange + ",");
-    sb.append(mAttackRangeClose + ",");
-    sb.append(mAttackRangeFar + ",");
-    sb.append(mAttack + ",");
-    sb.append(mDefense + ",");
-    sb.append(mHealth + ",");
-    sb.append(mUnitType + ",");
-    sb.append(mRow + ",");
-    sb.append(mCol + ",");
-    sb.append("]");
-    return sb.toString();
+  public void setCurrentHealth(int health) {
+    mCurrentHealth = health;
   }
-
-////////////////////////////////////////////////////////////////////////////////
-
-  public static Unit fromString(StringInputTokenizer tokenizer) throws Exception {
-    tokenizer.verifyStartReading("Unit");
-    Builder builder = new Builder()
-        .setName(tokenizer.readString())
-        .setCost(tokenizer.readInt())
-        .setMovementRange(tokenizer.readInt())
-        .setAttackRangeClose(tokenizer.readInt())
-        .setAttackRangeFar(tokenizer.readInt())
-        .setAttack(tokenizer.readInt())
-        .setDefense(tokenizer.readInt())
-        .setHealth(tokenizer.readInt())
-        .setRow(tokenizer.readInt())
-        .setCol(tokenizer.readInt());
-    tokenizer.verifyEndReading();
-    return builder.build();
-  }
-
-  public static class Builder<T extends Builder<T>> {
-    private String mName;
-    private int mCost;
-    private int mMovementRange;
-    private int mAttackRangeClose;
-    private int mAttackRangeFar;
-    private int mAttack;
-    private int mDefense;
-    private int mHealth;
-    private UNIT_TYPE mUnitType;
-    private int mRow;
-    private int mCol;
-
-    public Builder() {}
-
-    public Builder(String name, int row, int col) {
-      mName = name;
-      mRow = row;
-      mCol = col;
-    }
-
-    public T setName(String name) {
-      mName = name;
-      return (T) this;
-    }
-
-    public T setRow(int row) {
-      mRow = row;
-      return (T) this;
-    }
-
-    public T setCol(int col) {
-      mCol = col;
-      return (T) this;
-    }
-
-    public T setCost(int cost) {
-      mCost = cost;
-      return (T) this;
-    }
-
-    public T setMovementRange(int range) {
-      mMovementRange = range;
-      return (T) this;
-    }
-
-    public T setAttackRangeClose(int range) {
-      mAttackRangeClose = range;
-      return (T) this;
-    }
-
-    public T setAttackRangeFar(int range) {
-      mAttackRangeFar = range;
-      return (T) this;
-    }
-
-    public T setAttack(int atk) {
-      mAttack = atk;
-      return (T) this;
-    }
-
-    public T setDefense(int def) {
-      mDefense = def;
-      return (T) this;
-    }
-
-    public T setHealth(int health) {
-      mHealth = health;
-      return (T) this;
-    }
-
-    public T setUnitType(UNIT_TYPE type) {
-      mUnitType = type;
-      return (T) this;
-    }
-
-    public Unit build() {
-      return new Unit(this);
-    }
-  }
-
 }

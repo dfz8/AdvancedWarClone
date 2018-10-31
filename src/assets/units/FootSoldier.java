@@ -1,27 +1,49 @@
 package assets.units;
 
 public class FootSoldier extends Unit {
+  public static final String TAG = "FootSoldier";
 
-    public FootSoldier(Builder builder) {
-        super(builder);
-    }
+  public FootSoldier(int row, int col) {
+    super(row, col);
+  }
 
-    public static class Builder extends Unit.Builder<Builder> {
+  public FootSoldier(int row, int col, int currentHealth) {
+    super(row, col, currentHealth);
+  }
 
-        public Builder(int row, int col) {
-            super("Foot Soldier", row, col)
-                    .setCost(20)
-                    .setMovementRange(3)
-                    .setAttackRangeClose(1)
-                    .setAttackRangeFar(1)
-                    .setAttack(40)
-                    .setDefense(20)
-                    .setHealth(100)
-                    .setUnitType(UNIT_TYPE.LAND);
-        }
+  public String getName() {
+    return TAG;
+  }
 
-        public FootSoldier build() {
-            return new FootSoldier(this);
-        }
-    }
+  public int getCost() {
+    return 20;
+  }
+
+  public int getMovementRange() {
+    return 3;
+  }
+
+  public int getAttackRangeMin() {
+    return 1;
+  }
+
+  public int getAttackRangeMax() {
+    return 1;
+  }
+
+  public int getBaseAttack() {
+    return 40;
+  }
+
+  public int getBaseDefense() {
+    return 40;
+  }
+
+  public int getBaseHealth() {
+    return 100;
+  }
+
+  public UnitType getUnitType() {
+    return UnitType.LAND;
+  }
 }

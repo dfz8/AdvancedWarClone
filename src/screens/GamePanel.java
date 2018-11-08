@@ -36,22 +36,30 @@ public abstract class GamePanel extends JPanel {
     return mClickablePanels.remove(cp);
   }
 
-  public void processMouseClickEvent(MouseEvent e) {
+  public boolean processMouseClickEvent(MouseEvent e) {
     int x = e.getX();
     int y = e.getY();
-    for(ClickablePanel cp : mClickablePanels) {
-      cp.onMouseClick(x, y);
+    boolean consumed = false;
+    for (ClickablePanel cp : mClickablePanels) {
+      // Only the first ClickablePanel will get to process the click
+      consumed = consumed || cp.onMouseClick(x, y);
     }
+    return consumed;
   }
 
   public void processMouseMoveEvent(MouseEvent e) {
     int x = e.getX();
     int y = e.getY();
-    for(ClickablePanel cp : mClickablePanels) {
+    for (ClickablePanel cp : mClickablePanels) {
       cp.onMouseMove(x, y);
     }
   }
 
-  public OmniPanel getParent() { return mParent; }
-  public Graphics getBuffer() { return mBuffer; }
+  public OmniPanel getParent() {
+    return mParent;
+  }
+
+  public Graphics getBuffer() {
+    return mBuffer;
+  }
 }

@@ -1,5 +1,7 @@
 package screens;
 
+import gui.Alignment;
+import gui.ButtonFactory;
 import gui.ClickablePanel;
 import gui.TextButton;
 import gui.layouts.LayoutManager;
@@ -24,6 +26,9 @@ public class LevelMenuPanel extends GamePanel {
         LayoutManager.FLEX_DIRECTION.VERTICAL,
         LayoutManager.ALIGN_CONTENT.SPACE_BETWEEN);
 
+    registerClickablePanel(
+        ButtonFactory.getButton(this, ButtonFactory.ButtonType.DEFAULT_BACK));
+
     // TODO: load level state from save. then populate contents of levels
 
     // proof of concept:
@@ -42,18 +47,25 @@ public class LevelMenuPanel extends GamePanel {
     for (LevelRowPanel row : mLevels) {
       row.updateVisualState();
     }
+    drawClickablePanelViews();
   }
 
-  public void processMouseClickEvent(MouseEvent e) {
+  public boolean processMouseClickEvent(MouseEvent e) {
+    boolean consumed = false;
     for (LevelRowPanel panel : mLevels) {
-      panel.processMouseClickEvent(e);
+      consumed = consumed || panel.processMouseClickEvent(e);
     }
+    if (!consumed) {
+      return super.processMouseClickEvent(e);
+    }
+    return false;
   }
 
   public void processMouseMoveEvent(MouseEvent e) {
     for(LevelRowPanel panel : mLevels) {
       panel.processMouseMoveEvent(e);
     }
+    super.processMouseMoveEvent(e);
   }
 
   class LevelRowPanel extends GamePanel {

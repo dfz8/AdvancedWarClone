@@ -1,6 +1,7 @@
 package gui;
 
 import gui.layouts.Layoutable;
+import utils.OnClickListener;
 import utils.StyleUtil;
 
 import java.awt.Graphics;
@@ -15,6 +16,7 @@ public class ClickablePanel implements Layoutable {
   private boolean isHoveredOver;
   private boolean isEnabled;
   private StyleUtil mStyleUtil;
+  private OnClickListener mOnClickListener;
 
   public ClickablePanel(
       int width,
@@ -60,15 +62,16 @@ public class ClickablePanel implements Layoutable {
     return eX >= mLeft && eX <= mRight && eY >= mTop && eY <= mBottom;
   }
 
-  public void onMouseClick(int eX, int eY) {
+  public boolean onMouseClick(int eX, int eY) {
     if (isEnabled && isClickInBounds(eX, eY)) {
-      onClickCallback();
+      mOnClickListener.onClick();
+      return true;
     }
+    return false;
   }
 
-  // needs to be overridden
-  public void onClickCallback() {
-    // noop
+  public void setOnClickListener(OnClickListener onClickListener) {
+    mOnClickListener = onClickListener;
   }
 
   public void onMouseMove(int eX, int eY) {

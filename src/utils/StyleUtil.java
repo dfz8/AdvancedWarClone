@@ -8,7 +8,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 
 public class StyleUtil {
-  public static enum FONTS {
+  public enum Fonts {
     TITLE_FONT,
     SUBTITLE_FONT,
     TEXT_FONT,
@@ -37,7 +37,7 @@ public class StyleUtil {
     isDarkTheme = false;
   }
 
-  public Font getFont(FONTS font) {
+  public Font getFont(Fonts font) {
     switch (font) {
       case TITLE_FONT:
         return titleFont;
@@ -61,7 +61,7 @@ public class StyleUtil {
 
   public Color getOutlineColor() { return OUTLINE_COLOR; }
 
-  public void measureString(FONTS font, String text, SimpleRect bounds) {
+  public void measureString(Fonts font, String text, SimpleRect bounds) {
     switch(font) {
       case TITLE_FONT:
         bounds.setRight(titleFontMetrics.stringWidth(text));

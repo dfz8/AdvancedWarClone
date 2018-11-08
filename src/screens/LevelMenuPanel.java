@@ -84,8 +84,8 @@ public class LevelMenuPanel extends GamePanel {
               150,
               50,
               mTitle,
-              StyleUtil.FONTS.SUBTITLE_FONT,
-              TextButton.TEXT_ALIGNMENT.CENTER,
+              StyleUtil.Fonts.SUBTITLE_FONT,
+              Alignment.CENTER,
               styleUtil);
       titleCard.setIsEnabled(false);
 

@@ -63,7 +63,7 @@ public class ClickablePanel implements Layoutable {
   }
 
   public boolean onMouseClick(int eX, int eY) {
-    if (isEnabled && isClickInBounds(eX, eY)) {
+    if (isEnabled && mOnClickListener != null && isClickInBounds(eX, eY)) {
       mOnClickListener.onClick();
       return true;
     }
